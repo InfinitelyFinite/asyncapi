@@ -22,6 +22,8 @@ type Config struct {
 	DatabasePassword string `env:"DB_PASSWORD"`
 	Env              Env    `env:"ENV" envDefault:"dev"`
 	ProjectRoot      string `env:"PROJECT_ROOT"`
+	ApiServerPort    string `env:"APISERVER_PORT"`
+	ApiServerHost    string `env:"APISERVER_HOST"`
 }
 
 func (c *Config) DatabaseUrl() string {
