@@ -29,7 +29,7 @@ func (s *ApiServer) ping(w http.ResponseWriter, r *http.Request) {
 func (s *ApiServer) Start(ctx context.Context) error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /ping", s.ping)
-	mux.HandleFunc("POST /auth/signup", s.signupHandler)
+	mux.HandleFunc("POST /auth/signup", s.signupHandler())
 
 	middleware := NewLoggerMiddleware(s.logger)
 
