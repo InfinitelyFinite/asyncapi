@@ -24,6 +24,7 @@ type Config struct {
 	ProjectRoot      string `env:"PROJECT_ROOT"`
 	ApiServerPort    string `env:"APISERVER_PORT"`
 	ApiServerHost    string `env:"APISERVER_HOST"`
+	JwtSecret        string `env:"JWT_SECRET"`
 }
 
 func (c *Config) DatabaseUrl() string {
