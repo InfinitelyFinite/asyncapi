@@ -28,13 +28,15 @@ func run() error {
 
 	jsonHandler := slog.NewJSONHandler(os.Stdout, nil)
 	logger := slog.New(jsonHandler)
-	
+
 	db, err := store.NewPostgresDB(conf)
 	if err != nil {
 		return err
 	}
+
+	jwtManager := apiserver.NewJwtManager(conf)
 	dataStore := store.New(db)
-	server := apiserver.New(conf, logger, dataStore)
+	server := apiserver.New(conf, logger, dataStore, jwtManager)
 	if err := server.Start(ctx); err != nil {
 		return err
 	}
