@@ -1,1 +1,8 @@
 .envrc
+
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/*.tfplan
+terraform/*.tfvars
+terraform/.terraform.tfstate.lock.info

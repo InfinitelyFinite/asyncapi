@@ -14,17 +14,21 @@ const (
 )
 
 type Config struct {
-	DatabaseName     string `env:"DB_NAME"`
-	DatabaseHost     string `env:"DB_HOST"`
-	DatabasePort     string `env:"DB_PORT"`
-	DatabasePortTest string `env:"DB_PORT_TEST"`
-	DatabaseUser     string `env:"DB_USER"`
-	DatabasePassword string `env:"DB_PASSWORD"`
-	Env              Env    `env:"ENV" envDefault:"dev"`
-	ProjectRoot      string `env:"PROJECT_ROOT"`
-	ApiServerPort    string `env:"APISERVER_PORT"`
-	ApiServerHost    string `env:"APISERVER_HOST"`
-	JwtSecret        string `env:"JWT_SECRET"`
+	DatabaseName         string `env:"DB_NAME"`
+	DatabaseHost         string `env:"DB_HOST"`
+	DatabasePort         string `env:"DB_PORT"`
+	DatabasePortTest     string `env:"DB_PORT_TEST"`
+	DatabaseUser         string `env:"DB_USER"`
+	DatabasePassword     string `env:"DB_PASSWORD"`
+	Env                  Env    `env:"ENV" envDefault:"dev"`
+	ProjectRoot          string `env:"PROJECT_ROOT"`
+	ApiServerPort        string `env:"APISERVER_PORT"`
+	ApiServerHost        string `env:"APISERVER_HOST"`
+	JwtSecret            string `env:"JWT_SECRET"`
+	S3LocalstackEndpoint string `env:"S3_LOCALSTACK_ENDPOINT"`
+	LocalstackEndpoint   string `env:"LOCALSTACK_ENDPOINT"`
+	S3Bucket             string `env:"S3_BUCKET"`
+	SqsQueue             string `env:"SQS_QUEUE"`
 }
 
 func (c *Config) DatabaseUrl() string {
