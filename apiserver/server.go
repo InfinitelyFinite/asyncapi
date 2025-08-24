@@ -9,17 +9,22 @@ import (
 	"net/http"
 	"sync"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/sqs"
 )
 
 type ApiServer struct {
-	config     *config.Config
-	logger     *slog.Logger
-	store      *store.Store
-	jwtManager *JwtManager
+	config        *config.Config
+	logger        *slog.Logger
+	store         *store.Store
+	jwtManager    *JwtManager
+	sqsClient     *sqs.Client
+	presignClient *s3.PresignClient
 }
 
-func New(config *config.Config, logger *slog.Logger, store *store.Store, jwtManager *JwtManager) *ApiServer {
-	return &ApiServer{config: config, logger: logger, store: store, jwtManager: jwtManager}
+func New(config *config.Config, logger *slog.Logger, store *store.Store, jwtManager *JwtManager, sqsClient *sqs.Client, presignClient *s3.PresignClient) *ApiServer {
+	return &ApiServer{config: config, logger: logger, store: store, jwtManager: jwtManager, sqsClient: sqsClient, presignClient: presignClient}
 }
 
 func (s *ApiServer) ping(w http.ResponseWriter, r *http.Request) {
@@ -33,6 +38,8 @@ func (s *ApiServer) Start(ctx context.Context) error {
 	mux.HandleFunc("POST /auth/signup", s.signupHandler())
 	mux.HandleFunc("POST /auth/signin", s.signinHandler())
 	mux.HandleFunc("POST /auth/refresh", s.tokenRefreshHandler())
+	mux.HandleFunc("POST /reports", s.createReportHandler())
+	mux.HandleFunc("GET /reports/{id}", s.getReportHandler())
 
 	middleware := NewLoggerMiddleware(s.logger)
 	middleware = NewAuthMiddleware(s.jwtManager, s.store.Users)
