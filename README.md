@@ -74,7 +74,7 @@ asyncapi/
 
 ### 1. Clone and Setup
 ```bash
-git clone <repository-url>
+git clone https://github.com/InfinitelyFinite/asyncapi.git
 cd asyncapi
 ```
 
@@ -129,9 +129,6 @@ go test ./store/...
 ### Reports
 - `POST /reports` - Submit new report generation request
 - `GET /reports/{report_id}` - Get report status and download URL
-
-### Health Check
-- `GET /ping` - Service health check
 
 ## 🗄️ Database Schema
 
