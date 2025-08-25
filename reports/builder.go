@@ -47,7 +47,7 @@ func (b *ReportBuilder) Build(ctx context.Context, userId uuid.UUID, reportId uu
 	}
 
 	defer func() {
-		if err != nil {
+		if err != nil && report != nil {
 			now := time.Now()
 			errMsg := err.Error()
 			report.FailedAt = &now
@@ -119,7 +119,7 @@ func (b *ReportBuilder) Build(ctx context.Context, userId uuid.UUID, reportId uu
 		return nil, fmt.Errorf("failed to close gzip writer: %w", err)
 	}
 
-	key := "/users" + userId.String() + "/report/" + reportId.String() + ".csv.gz"
+	key := "/users/" + userId.String() + "/report/" + reportId.String() + ".csv.gz"
 	_, err = b.s3Client.PutObject(ctx, &s3.PutObjectInput{
 		Key:    aws.String(key),
 		Bucket: aws.String(b.config.S3Bucket),
