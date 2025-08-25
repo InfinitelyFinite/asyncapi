@@ -3,7 +3,7 @@
 A Go-based microservices architecture for handling asynchronous report generation with JWT authentication, PostgreSQL database, and SQS message queuing.
 
 ## 🏗️ Architecture Overview
-
+<img width="800" height="369" alt="Screenshot 2025-08-24 at 2 23 27 PM" src="https://github.com/user-attachments/assets/35a2e2e9-0160-41cf-ab0d-0fc74a9c9a28" />
 
 ## 🔄 Request Flow
 
