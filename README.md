@@ -4,29 +4,6 @@ A Go-based microservices architecture for handling asynchronous report generatio
 
 ## 🏗️ Architecture Overview
 
-```mermaid
-graph TB
-    client[client]
-    apiserver[apiserver]
-    postgres[(postgres)]
-    reports_sqs_queue[reports_sqs_queue]
-    sqsworker[sqsworker]
-    s3[(s3)]
-    lozapi[LoZ API]
-    
-    client -->|"POST /auth/signup<br/>POST /auth/signin<br/>POST /auth/refresh"| apiserver
-    client -->|"POST /reports<br/>GET /reports/{report_id}"| apiserver
-    
-    apiserver --> postgres
-    apiserver -->|"SQS { report_id }"| reports_sqs_queue
-    
-    reports_sqs_queue --> sqsworker
-    sqsworker --> lozapi
-    sqsworker --> s3
-    
-    postgres -.->|"users<br/>refresh_tokens<br/>report_jobs"| postgres
-    s3 -.->|"s3://api-reports"| s3
-```
 
 ## 🔄 Request Flow
 
